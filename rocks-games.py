@@ -35,6 +35,7 @@ def play_game(player_1, player_2):
 
         if winner is None:
             print("It was a tie!")
+            print()
         else:
             print(f"The winner of this round is {winner}")
             if winner == player_1:
@@ -42,23 +43,29 @@ def play_game(player_1, player_2):
             if winner == player_2:
                 wins_p2 += 1
             print(f"Standings: {player_1} {wins_p1}  {player_2} {wins_p2}")       
-            print()    
+            print() 
+
     if wins_p1 >= rounds:
         overall_winner = player_1
     else:
         overall_winner = player_2
 
-    print(f"{overall_winner} wins the game!")
-
-
+    print(f"{overall_winner} won the game!")
+    
     
 def get_roll(player_name, rolls):
-    roll= input(f"{player_name}, what is your roll? [rock, paper, scissors]: ")
-    roll= roll.lower().strip()
-    if roll not in rolls:
-        print(f"Sorry {player_name}, {roll} is not a valid play!")
+    print("Available rolls:")
+    for index,  r in enumerate(rolls, start=1):
+        print(f"{index}. {r}")
+
+    text= input(f"{player_name}, what is your roll? [rock, paper, scissors]: ")
+    selected_index = int(text) - 1 #to convert initial start to 0 for array
+
+    if selected_index < 0 or selected_index >= len(rolls):
+        print(f"Sorry {player_name}, {text} is not a valid play!")
         return None 
-    return roll
+
+    return rolls[selected_index]
 
 def check_for_winning_throw(player_1, player_2, roll1, roll2):
     # Test for a winner
